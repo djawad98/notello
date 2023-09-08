@@ -57,16 +57,18 @@ function saveSequence() {
   }
 }
 
-function loadSequence(sequence: Sequence){
+function loadSequence(sequence: Sequence) {
   notes.value = sequence.content
 }
 
-function deleteSequence(deletedSequence: Sequence){
-  savedSequences.value = savedSequences.value.filter(seq => {
-    return seq.id !== deletedSequence.id
-  })
+function deleteSequence(deletedSequence: Sequence) {
+  if (confirm('Are you sure?')) {
+    savedSequences.value = savedSequences.value.filter(seq => {
+      return seq.id !== deletedSequence.id
+    })
 
-  localStorage.setItem(SAVED_NOTE_SEQUENCE_KEY, JSON.stringify(savedSequences.value))
+    localStorage.setItem(SAVED_NOTE_SEQUENCE_KEY, JSON.stringify(savedSequences.value))
+  }
 }
 </script>
 
@@ -90,24 +92,24 @@ function deleteSequence(deletedSequence: Sequence){
       </ul>
     </div>
     <div class="p-4">
-    <button @click="saveSequence" type="button" class="button w-full mb-4">Save</button>
-    <div class="mt-4">
-      <p>Saved Sequences:</p>
-      <ul v-if="savedSequences.length" class="list">
-        <li v-for="sequence,i in savedSequences" :key="i" @click="loadSequence(sequence)" >
-          {{ sequence.label }}
-          <button @click.stop="deleteSequence(sequence)" type="button" class="text-sm text-red-500 hover:underline">Delete</button>
-        </li>
-      </ul>
-      <p v-else class="text-sm mt-2 text-gray-400">No sequence found.</p>
+      <button @click="saveSequence" type="button" class="button w-full mb-4">Save</button>
+      <div class="mt-4">
+        <p>Saved Sequences:</p>
+        <ul v-if="savedSequences.length" class="list">
+          <li v-for="sequence, i in savedSequences" :key="i" @click="loadSequence(sequence)">
+            {{ sequence.label }}
+            <button @click.stop="deleteSequence(sequence)" type="button"
+              class="text-sm text-red-500 hover:underline">Delete</button>
+          </li>
+        </ul>
+        <p v-else class="text-sm mt-2 text-gray-400">No sequence found.</p>
+      </div>
     </div>
-  </div>
   </main>
 </template>
 
 
 <style lang="scss" scoped>
-
 .board {
   @apply flex;
 }
@@ -118,6 +120,7 @@ function deleteSequence(deletedSequence: Sequence){
 
 .list {
   @apply flex flex-col divide-gray-400 divide-y;
+
   li {
     @apply px-2 py-1 cursor-pointer;
     @apply flex justify-between items-center
