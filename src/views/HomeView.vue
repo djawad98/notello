@@ -74,6 +74,10 @@ function deleteSequence(deletedSequence: Sequence) {
 
 <template>
   <main>
+    <div class="p-2 border-b border-gray-300">
+      <h1 class="text-center text-xl font-bold">Notello</h1>
+      <p class="text-center text-sm text-gray-400">Learn music your way</p>
+    </div>
     <div class="p-4 flex flex-col gap-4">
       <ul class="flex flex-wrap">
         <li v-for="note, i in allNotes" :key="i" class="block w-1/2">
