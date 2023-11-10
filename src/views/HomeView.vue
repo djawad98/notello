@@ -92,7 +92,7 @@ function deleteSequence(deletedSequence: Sequence) {
     </div>
     <div class="max-w-full overflow-y-auto pb-4">
       <ul class="board">
-        <img v-for="note, i of notes.slice(0, noteCount)" :key="i" :src="`notes/${note}.gif`">
+        <img v-for="note, i of notes.slice(0, noteCount)" :key="i" :src="`notes/${note}.png`">
       </ul>
     </div>
     <div class="p-4">
